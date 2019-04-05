@@ -1,0 +1,659 @@
+\author{\bf Tushar Sinha}
+% Default to the notebook output style
+\usepackage{graphicx}
+\usepackage{amsmath}
+    \usepackage{algorithm,algorithmic,amsmath}
+
+
+% Inherit from the specified cell style.
+
+\documentclass[11pt]{article}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{romannum}
+
+
+     \setlength{\parindent}{5ex}
+
+    \usepackage{listings}
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZpc{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+      
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    \title{ {\Huge Implementing Blossom V Algorithm for Computing Minimum Cost Perfect Matching in a General Graph} \ \\[1\baselineskip]
+           GSoC 2019 Proposal \\ Julia - LightGraphs \\ Mentors : Simon Schoelly, Mathieu Besançon}
+
+    \begin{document}
+    
+    \maketitle
+
+    
+
+\section{\texorpdfstring{\textbf{INTRODUCTION}}{Synopsis}}\label{synopsis}
+\subsection{\texorpdfstring{\textbf{Matching problem in graphs}}{Matching problem}}\label{The eigenvalue problem}
+
+Let G = (V,E,c) be an undirected weighted graph where  V is the set of vertices, E the set of edges and c denotes the cost of edges. 
+A matching M in G is a set of pairwise non-adjacent edges, none of which are loops; that is, no two edges share a common vertex. 
+
+A maximum matching M of a graph G is a matching that contains the maximum possible number of edges from the graph. That is, for every matching M′of G,|M|≥|M′|. 
+
+A matching is called a perfect matching if all the vertices of the graph are saturated i.e. they are end points of some edge of matching M. The following is an example depicting minimum cost perfect matching in a graph.\\
+\documentclass{}
+\usepackage{}
+\graphicspath{ {./images/} }
+
+\begin{center}
+    \includegraphics{2.png}
+\end{center}
+
+ 
+
+Often the graphs are weighted and in that case we are interested in finding minimum/maximum cost matching of a given cardinality in the graph the most popular amongst which is perfect matching in a graph in which exactly |V|/2 number of edges are part of the matching. The cost of a matching is defined as the sum of weights of edges in matching M.
+
+Matching problems have some variations which are as follows:
+\begin{itemize}
+\item Maximum bipartite matching problem. 
+\item Minimum weight perfect bipartite matching problem.
+\item Maximum matching problem.
+\item Minimum weight perfect matching.
+\end{itemize}\\
+All the four problems mentioned above are closely related.
+In fact, solutions of harder problems are based on the ideas used for easier
+problems. It is easier to solve matching problems in bipartite graphs because we can quickly search for augmenting paths because we explore from each vertex only once [2,3]. The major ideas in solving these problems are:
+\begin{itemize}
+\item Finding augmenting paths to increase the cardinality of the matching.
+\item Contraction of odd length cycles into single pseudonodes.
+\item Growing the alternating tree to find an augmenting path, and using dual-primal
+approach to convert linear programming problem into purely combinatorial algorithm. This idea involves implicit formulation of the dual linear program,
+maintaining its feasible solution, and increasing the cardinality of the matching
+with respect to the complementary slackness condition so that the final solution
+is also feasible to the primal linear program which ensures optimality.
+\end{itemize}\\
+
+
+
+Jack Edmonds discussed the problem in [2] and proposed a polynomial-time algorithm based on ideas described above for solving this problem in [3]. His approach was based on the fundamental fact, proven in [6], that a matching is maximum if and only if there is no alternating path connecting two unmatched
+vertices.
+Further researches were focused on improving average running time. 
+Improvements to the Edmond’s Blossom I algorithm include:
+\begin{itemize} 
+\item Using more efficient data structures to improve the running time.
+\item Using different ways to perform dual updates.
+\item Involvement of additional initialization techniques.
+\end{itemize} 
+Using above ideas, the worst-case complexity of the blossom algorithm has been steadily improving. First, a  running time  of $O(V^{3})$  was achieved which was improved to $O(EVlogE)$, which was further improved to $O(E(Vlog log log_{max{\{m/n,2\}}}V+VlogV))$. The current best known result in terms of E and V is $O(V(E+logV))$. 
+
+My project is focused on developing an implementation of the fast version of Edmond’s Blossom I algorithm, namely Blossom V, for minimum weight perfect matching in general graphs. This algorithm was developed by
+Kolmogorov [8].
+
+Implementation of Blossom IV and Blossom V don’t
+have such a good worst-case complexity. Instead, they possess very good average running time, which gives them advantage over other algorithms in this field (in fact, Blossom IV has $O(V^{3}E)$ worst-case complexity observed in [8]). That is why improvements described above usually don’t reduce the worst-case running time. This area is an active field of study of the best techniques to use in practice. As a result, implementations of Blossom IV and V have different
+subversions that use various strategies.
+\end{itemize}\\
+\subsection{\texorpdfstring{\textbf{The LightGraphs Package}}{The matching problem}}\label{The eigenvalue problem}
+
+LightGraphs.jl is a Julia package that implements several commonly used graph algorithms. LightGraphs.jl has many sister packages one of which is LightGraphsMatching.jl
+which implements commonly used matching algorithms in graph theory. LightGraphs.jl also supports the popular Blossom V algorithm. This package is dependant on BlossomV.jl package which is a Julia wrapper
+around Kolmogorov's Blossom V algorithm. The code by Kolmogorov is implemented in C language and is called
+from Julia using a ccall as described : 
+\begin{center}
+ ccall((:matching\_solve, \$\_jl\_blossom5), Cvoid, (Ptr{Cvoid},), matching.ptr)
+\end{center}
+
+However, author's code has UCLB Licence ALBL 1.02 which prohibits its commercial use and is licensed for research purposes only. Another problem is that calling this code from Julia often leads the code to segfault. Also, a lot of Julia tools can't be used because BlossomV.jl calls c functions from [1].
+
+I propose to write a native Julia implementation of Blossom V algorithm in a new package named BlossomMatching.jl thus totally removing the dependency on C code. There are only a couple of other implementations available for this algorithm. LightGraphs will become one of the first graph package to have implementation of Blossom V and it will strengthen its position as a top-notch graphs package.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{\texorpdfstring{\textbf{PROJECT DESCRIPTION}}{PROJECT DESCRIPTION}}\label{PROJECT DESCRIPTION}
+
+In this section I describe the different logical and structural aspects of the implementation.
+
+\subsection{\texorpdfstring{\textbf{INTERFACE OF THE IMPLEMENTATION}}{Pseudo Code}}}\label{Pseudo Code}}
+
+In this sub-section I’m going to describe the interface of the implementation.
+I plan to provide the following options in the implementation :
+\begin{itemize} 
+\item Initialize the solver with a weighted graph and solve problem instance.
+Obtain the global solution (set of matched edges), check, whether a particular edge is matched, or get the corresponding matched vertex of a given vertex
+ which is also called the mate of the vertex. \item Specify the configuration of the algorithm (the file, to which the solution
+should be saved, type of initialization, etc).
+\item Obtain the certificate of optimality (values assigned to the dual variables,
+whose sum equals to the weight of the matching).
+\item Get the statistics of the algorithm execution, i.e. number of primal operations(shrink, expand, etc.), time spent to perform them. This is one type
+of benchmarking. \\
+\textbf{Goal:} Provide information for further research or for additional improvements.
+\end{itemize} 
+
+\subsection{\texorpdfstring{\textbf{DATA STRUCTURES}}{}}\label{} 
+ 
+This algorithm needs additional data structures to optimize time complexity. Some of these like fibonacci heaps, pairing heaps are not yet implemented in DataStructures.jl and hence I need to implement them from scratch.
+\subsubsection{\texorpdfstring{\textbf{Nodes}}{}}\label{}   
+During the execution of the algorithm we need to maintain alternating trees,
+which help us to find alternating paths and augment the matching. Nodes of
+the trees need to store following information: 
+\begin{itemize} 
+\item whether the node is a vertex or it
+is a pseudonode. 
+\item whether it is an outer node or is contained in another blossom.
+\item its label (+, - or ∞, see [8]). Besides that it stores information needed to grow
+a tree, to perform an augmentation, etc. 
+\end{itemize}
+One way to store this data is to have
+global dictionaries for all vertices. In case the vertices are integral and in the range 1:N, then using a vector is also sufficient. \\
+\textbf{Responsibilities:} 
+\begin{itemize} 
+\item store dual variables, edge pointer and other information
+needed for the execution of the algorithm. 
+\item encapsulate operations performed on
+this information in order to speed up primal and dual updates.
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\textbf{Edges}}{}}\label{}   
+Edges also have information attached to them. For instance, an edge has a
+slack. Edges are store in priority queues, so they store references to these data
+structures for quick access. \\
+\textbf{Responsibilities:} 
+\begin{itemize} 
+\item store edge slacks and other attached information.
+\item encapsulate operations performed on this information in order to speed up primal and
+dual updates.
+\end{itemize}
+ 
+ 
+\subsubsection{\texorpdfstring{\textbf{Trees}}{}}\label{}   
+This data structure can be implemented either explicitly or implicitly. In
+the first case it will encapsulate all operations needed to grow the tree, shrink,
+expand nodes, etc. This interface then will be used in the primal updater
+block. In the second case these operations will be directly implemented in the
+primal updater block. A set of alternating trees will be, in fact, an array of
+references to the root nodes. In particular, the latter approach is used in [1].
+
+\subsubsection{\texorpdfstring{\textbf{Priority Queues}}{}}\label{}  
+This data structure is used to find an edge with a minimum slack or to find
+the ”-” pseudonode of a tree with the minimum dual variable value in O(1).\\
+\textbf{Responsibilities}: 
+\begin{itemize} 
+\item store edges.
+\item speed up dual updates.
+\end{itemize}
+There are two possible alternatives as described :
+\begin{itemize}
+\item \textbf{Fibonacci Heaps} : This is a well-known data structure. It was used in the first version of
+Blossom V.
+\item \textbf{Pairing Heaps} : Pairing heaps are a simplified version of Fibonacci heap. They take less memory (only 2 pointers per node) and are more efficient in practice. Fibonacci
+heaps were replaced by them in the second version of the [1]. According to [1], paring heaps
+are marginally faster. They are described in [13].
+\end{itemize}
+If the implementation of the Fibonacci heaps suits for the algorithm, then
+it will be used initially. Nevertheless, pairing heaps are claimed to be more
+lightweight then Fibonacci heaps and will be implemented in the case the latter
+data structure doesn’t supplies the needs of the algorithm.
+
+\subsection{\texorpdfstring{\textbf{CODE STRUCTURE}}{}}\label{} 
+
+Here I describe the way I’m going to decouple the implementation into
+different directories, files and functions. For simplicity, I use the term 'block' collectively for directories/file/functions as exact prototype will depend on final implementation. My task is not to mess up everything into one heap. This decoupling is aimed on making implementation process less error prone and also to make  subsequent
+extensions easier.
+\subsubsection{\texorpdfstring{\textbf{Initialization Block}}{}}\label{} 
+This block will be used to precompute some intermediate matching to
+improve the running time of the algorithm. \\
+\textbf{Responsibilities of the block:} Find initial matching to start the execution of the algorithm with non-empty set of edges and non-zero dual variables.\\
+Two different strategies for initialization are discussed in [8] which are described as follows :
+\begin{itemize}
+\item \textbf{Greedy Initialization }: This is the simplest type of initialization. For each node v in graph G = (V, E) we set the dual variable $y_{v}$ to $(1/2)min\{w_{u,v}:u \in N (v)\}$. Then we traverse the nodes again, greedily increase dual variables and choose matching
+edges, if it is possible.
+\item \textbf{Fractional initialization }:  The idea is to solve a linear program for a graph instance, which doesn’t
+include constraints for all sets of vertices of odd cardinality. In fact, this LP
+formulation is identical to the one used in the Hungarian algorithm. In general
+graphs this is not sufficient and as a result, primal variables can be equal to 0,
+0.5 or 1. The next step is to fix the solution and begin the execution of the
+main algorithm with obtained matching.\\
+\textbf{Advantages :} The fractional matching problem is an efficient way to initialize
+the matching. It is also much faster compared to the Blossom algorithm. 
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\textbf{Primal Updater}}{}}\label{}
+This block will use information stored in vertices and edges to grow trees, find
+alternating paths and augment the matching. It performs shrinking, expanding,
+growing and augmenting operations.\\
+\textbf{Responsibilities:}
+\begin{itemize} 
+\item perform primal operations.
+\item update data stored in the vertices and edges of the trees. 
+\end{itemize}
+There exist cases, when primal
+updates can’t be performed exactly after dual update. This can happen when
+there exist no perfect matching in the graph (note: in this case the algorithm
+doesn’t guarantee to choose the minimum weight matching among all existing).
+This block should also correctly report these situations.
+
+\subsubsection{\texorpdfstring{\textbf{Dual Updater}}{}}\label{}
+Algorithm needs dual variable updates in the case when primal updater can’t
+grow trees any further. There are several possible ways to perform dual updates:
+\begin{itemize}
+\item \textbf{Single tree approach} : We choose a tree, compute δ for it by means of information stored in priority queues, and update dual variables of nodes or pseudonodes of the chosen tree. \textbf{Advantages}: This method is pretty simple and efficient at the beginning of the algorithm.
+\item \textbf{Multiple tree single fixed δ approach} : We consider all constraints imposed
+by the vertices of all trees. Then we compute fixed δ and update dual
+variables.\\ 
+\textbf{Disadvantages}: This method implies examining all trees. With
+fixed the dual update is determined as a bottleneck among all trees, and
+thus can be quite small [8].
+\item \textbf{Multiple tree variable δ approach}:
+Again we take vertices of all trees in
+consideration, but allow each tree to have its own $\delta _{T_{i}}$
+ . There are several
+complications with this technique, for example, (+, -) edges may create
+circular dependencies between the $\delta _{T_{i}}$ , so not all δ can be different. This
+technique also involves using supporting algorithms for the computation
+of the $\delta _{T_{i}}$ . \\
+\textbf{Advantages}: This method performs better in some cases
+comparing to the fixed δ approach. Furthermore, due to its flexibility it
+can increase dual objective by a much larger amount, which can lead to
+more primal updates.
+\end{itemize}
+Here I need to make one note. It is shown in [9] and mentioned in [8]
+that final 5\% of augmentations can take 50\% of time and it often happens.
+That is why it makes sense to use single tree approach to perform first 95\% of
+augmentations and multiple tree fixed δ or variable δ approach for the remaining
+5\%. Variable δ variant is used in Blossom V, as it has a couple of advantages
+over fixed δ approach. As mentioned above, this technique is pretty advanced.
+It formulates a linear program for δ’s of different trees, which turns out to be a
+dual to the minimum cost maximum flow problem. It solves the dual problem
+with the successive shortest path algorithm of Ford and Fulkerson [1].\\
+\textbf{Responsibilities}: Manipulate the dual variables assigned
+to vertices and pseudonodes and increase the dual objective function.
+
+
+\subsubsection{\texorpdfstring{\textbf{Control block}}{}}\label{}
+\textbf{Responsibilities}: Controls the execution of the algorithm,
+calls the methods of primal and dual block, handle notifications from these
+parts, starts the executions with an appropriate initialization. It also decides,
+which type of dual updates to use at a particular stage of the execution.
+There is also one technique worth noting here which is described as follows:
+\begin{itemize}
+\item \textbf{Price and repair} : This technique is mainly used to solve large problem instances. The complexity of the algorithm is heavily influenced by the number of edges in the
+graph. Initially the sparse subset of edges is selected and the problem is solved
+on this subgraph. Then the slack of every edge is computed (pricing). Finally
+edges with negative slack are added to the subgraph and the procedure repeats. There
+are different techniques of choosing a sparse subgraph, for instance, k-nearest
+neighbor - selecting of k edges with minimum weights incident to a vertex for
+some k.\\
+\textbf{Advantages}: This technique optimizes the running time of the algorithm
+for large problem instances.\\
+\textbf{Disadvantages}: This technique is advanced and requires additional data
+structures and supporting algorithms for computing LCA in O(1).
+\end{itemize}
+Price and repair technique improves running time mainly on the large problem instances. Multiple tree fixed δ approach is an alternative for multiple tree
+variable δ approach. It is mentioned in [8] that latter has its advantages over
+the other one. That is why I consider the implementation of these techniques
+as not the task of prime importance. They can be added after the structure of
+the code is refined appropriately.
+
+\subsection{\texorpdfstring{\textbf{BENCHMARKING}}{}}\label{}
+Main goal of benchmarking is to measure average running time, compare the performance with different heap implementations namely fibonacci heaps and pairing heaps and compare the algorithm with other implementations.
+
+Benchmarking can be performed in a similar to [8,9] way. Namely, large
+graphs can be generated using existing libraries or as a set of points on a plane
+with weights as the Euclidean distance between them. This strategy will also
+be used to test the performance of different implementation options.
+
+In my opinion, the best way to check correctness of this implementation on
+large instances is to use [1].
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\texorpdfstring{\textbf{TIMELINE}}{TIMELINE}}\label{TIMELINE}
+
+\paragraph{Pre-GSoC Period (April 10-May 5) \\[\baselineskip]}
+I have to submit my B Tech. thesis around 15th April and then my end semester exams follow from 20th-29th April. So I won't be able to work during this time. I can restart the work from 30th April. I plan to submit more PRs before 6th May to get myself more familiar with LightGraphsFlows.jl & LightGraphs.jl . The next algorithms which I plan to add are:
+\begin{itemize}
+
+\item Push Relabel algorithm for computing the maximum flow of flow network in $O(EV+V^{2}E^{0.5})$ time . Current implementation in LightGraphsFlows.jl has $O(V^{3})$ time complexity.
+
+\item Finding Lowest Common Ancestor (LCA) of 2 nodes in a tree by reducing it to a Range Minimum Query (RMQ) problem. Each query will require $O(logN)$ time with one time pre-processing in $O(N) $ time.
+\end{itemize}
+Also, from whatever time I can manage during April 10-April 29, I plan to go through the codebase of LightGraphs.jl to learn more about the coding style followed and to know more about intricacies of Julia.
+\paragraph{Community Bonding Period (May 6 - May 26) \\[\baselineskip]}
+I plan to go through the research papers mentioned in the References section of this proposal again in this time. A lot of implementation details like which data structures to use and what additional information to store with nodes, edges are already covered in the Blossom V paper but due to complexity of the project, a lot of concrete implementation details need to be decided beforehand. I plan to take all the design decisions in this period with the help of my mentors.
+
+\paragraph{First and Second week (May 27 - June 9)\\[\baselineskip]}
+I plan to start by working on the representations of  nodes, edges and tress and implementing data structures which  store additional information required with them. 
+\paragraph{Third and Fourth week (June 10 - June 23)\\[\baselineskip]}
+I plan to work on initialization block by implementing greedy initialization. Also, implement 
+all operations of primal updater in primal updater block and implement single tree approach in dual updater block and control block.
+\paragraph{Fifth week  (June 24 - June 30)\\[\baselineskip]}
+ I plan to use this week as a buffer for catching up on any previous work left.
+\paragraph{Sixth, Seventh and Eighth week (July 1 - July 21)\\[\baselineskip]}
+I plan to implement fractional initialization and multiple tree variable δ approach in initialization and dual updater block respectively. These parts are very important for the algorithm because they substantially improve its running time.
+
+Implementing fibonacci and pairing heaps for using them as priority queues and experimenting with them for speed will also be done in these 3 weeks.
+\paragraph{Ninth week (July 22 - July  28)\\[\baselineskip]}
+I plan to use this week as a buffer for catching up on any previous work left.
+\paragraph{Tenth week (July 29 - August 4)\\[\baselineskip]}
+I plan to spend this week in connecting all the work done as of now and get the algorithm working correctly by the end of 10th week. Also, I plan to connect BlossomMatching.jl with LightGraphsMatching.jl removing its dependancy on BlossomV.jl .
+\paragraph{Eleventh and Twelfth week (August 5 - August 18)\\[\baselineskip]}
+I plan to spend this period in testing, benchmarking and writing documentation. Also, I would write tests for the algorithm covering different type of graphs as described in [8]. 
+\paragraph{Thirteenth week (August 19 - August 25)\\[\baselineskip]}
+Wrapping up all the work. Making sure that I’ve reached all project goals and writing a comprehensive blog showing the benchmarks and comparison with other existing implementations of Blossom V algorithm.
+\paragraph{Post GSoC period\\[\baselineskip]}
+Once the Blossom V algorithm is up and running, it can be extended to solve the Maximum Weight Perfect Matching problem and Maximum Weight Matching problem. Galis's paper[5] and Guido Schäfer's Master's thesis as given on [1] describe the ways to extend Blossom V implementation to solve above problems.
+
+ \\[\baselineskip]
+
+    
+\section{\texorpdfstring{\textbf{PREVIOUS CONTRIBUTIONS }}{CODE SUBMISSIONS AND PRs}}\label{CODE SUBMISSIONS AND PRs}
+ 
+
+ \begin{itemize}
+ \item \href{https://github.com/JuliaGraphs/LightGraphs.jl/pull/1173} {\#1173} : Added strongly\_connected\_components\_kosaraju(G) function (with tests) for finding strongly connected components in a directed graph.
+ \item \href{https://github.com/JuliaGraphs/LightGraphs.jl/pull/1182}{\#1182} : Made changes to strongly\_connected\_components(G) to make it 4-5 times faster. Also after changes, the algorithm required nearly 500 times lesser memory.
+\item \href{https://github.com/JuliaGraphs/LightGraphs.jl/pull/1187}{\#1187} : Modified floyd\_warshall\_shortest\_paths(G) to indicate negative weight cycles on the path between 2 vertices by outputting dists[i,j] = - Inf . Also made changes to indicate a negative weight cycle in the graph.  
+\item \href{https://github.com/JuliaGraphs/LightGraphs.jl/pull/1189}{\#1189} : Added spfa\_shortest\_paths() function (with tests) for calculating single source shortest path in a graph with negative weights. Also added has\_negative\_cycle\_spfa(G) function to indicate negative weight cycle in the graph. Both functions are faster than their counterparts viz. bellman\_ford\_shortest\_paths(G) and has\_negative\_cycle(G).
+\item \href{https://github.com/JuliaGraphs/LightGraphs.jl/pull/119x}{\#119x} (will be submitted before 9th April) : Added lca(i,j) function (with tests) to calculate lowest common ancestor of 2 nodes i and j in a tree G using binary lifting algorithm.  
+
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{ABOUT ME}}{ABOUT ME}}\label{ABOUT ME}
+
+I am a 4th-year undergraduate student pursuing my Bachelors of Technology in the Department of Electrical Engineering at Indian Institute of Technology [IIT], Kharagpur, India. I work on Ubuntu 16.04 LTS. I use Juno+Atom as my primary text editor for working in Julia whereas I use Sublime Text for writing codes in C++ and Python. I love both Atom and Sublime Text for their power and flexibility. I'm proficient in C++ and Python. I prefer to use C++ for solving algorithmic coding problems whereas I prefer Python for all other purposes because it lets me easily convert my ideas into code. My favourite programming language is C++ because of its STL library which helps me immensely in solving coding problems. 
+
+I am programming in Julia for the past 3 months and now  I have learnt it to a fair extent and can program comfortably in it. From my previous programming experience I know that it takes some time and experience in understanding the intricacies of a programming language and hence I have planned to go through the codebase of LightGraphs.jl in pre-GSoC period as I feel that reading efficient code is the 2nd best way to learn the good programming practices of a language. Best way is to do a project using the language.
+
+
+\subsection{Why me?}
+Implementing Blossom V project will require a strong background in  Algorithms, Data Structures, Graph Theory and Linear Programming and I'm proficient in all of these. My knowledge about these topics is attributed to the following courses that I enrolled and cleared in my college : Algorithms 1, Algorithms 2, Advanced Graph Theory.
+
+ Apart from this I have been solving algorithmic coding problems on various competitive programming websites like Codeforces, Codechef, SPOJ, Hackerrank etc. for last 3 years.
+ My programming skills have improved a lot due to this and now I strive to write time and memory efficient code. I'm aware about a lot of algorithms and can think about solutions to complex problems as well.
+ This project is complicated in every sense due to great deal of programming complexity and heavy use of advanced data structures. I think that my knowledge about various algorithms and my ability to think of complex problems and converting them into code will immensely help me in implementing this project.
+ 
+Also, I have been involved in a lot of projects during 4 years of my college. The projects whose code could be made public have been put under \href{https://github.com/sinhatushar/Projects}{this repository} on my github account.
+
+\href{https://tinyurl.com/y7w4uhuv}{Link} to my CV.
+\subsection{Contact Information}
+Github: \href{https://github.com/sinhatushar}{sinhatushar}\\
+Email: bikztushar@gmail.com, bikztushar@iitkgp.ac.in\\
+Skype: Reach me by searching for my email-id viz. bikztushar@gmail.com on skype.\\
+Slack Id: sinhatushar \\
+Contact number: (+91) 9932560655\\
+Time Zone: UTC+5:30 (India)\\
+\section{\texorpdfstring{\textbf{SUMMER LOGISTICS}}{SUMMER LOGISTICS}}\label{SUMMER LOGISTICS}
+\subsection{Working hours}
+I am hoping to dedicate around 40-45 hours of work per week throughout the summer (6th May onwards) on this project. A reduction in working hours in a week because of unavoidable conditions will be surely compensated later in the following weeks. Also, I will make sure to communicate the same to my project mentors \textbf{Simon Schoelly} and \textbf{Mathieu Besançon}  well in advance. After my graduation in April, I will be joining \textbf{JP Morgan Chase \& Co.} for a \textbf{software developer} role. The joining date is 12th August and I think I will have wrapped up my project by then. So overall I plan to spend around 550-600 hours of work into this project.
+
+
+\section{\texorpdfstring{\textbf{REFERENCES}}{REFERENCES}}\label{REFERENCES}
+[1]\:\:\:\:\href{http://pub.ist.ac.at/~vnk/software.html}{Blossom V author's implementation }\newline
+[2]\:\:\:\:\href{https://math.nist.gov/~JBernal/p_t_f.pdf}{J. Edmonds. Path, trees, and flowers. Canadian J. Math., 17:449–467, 1965.}\newline
+[3]\:\:\:\:\href{https://nvlpubs.nist.gov/nistpubs/jres/69B/jresv69Bn1-2p125_A1b.pdf}{J. Edmonds. Maximum matching and a polyhedron with 0-1 vertices. J. of Research at the National Bureau of Standards, 69B:125–130, 1965 }\newline
+[4]\:\:\:\:\href{https://www3.cs.stonybrook.edu/~algorith/implement/LEDA/implement.shtml}{LEDA library C++ }\newline
+[5]\:\:\:\:\href{http://www.cs.kent.edu/~dragan/GraphAn/p23-galil.pdf}{Zvi Galil, Efficient algorithms for finding maximum matching in graphs, ACM Computing Surveys, 1986. }\newline
+[6]\:\:\:\:\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC534337/pdf/pnas00700-0060.pdf}{Claude Berge. Two theorems in graph theory. 1957 }\newline
+[7]\:\:\:\:\href{https://www.math.uwaterloo.ca/~bico/blossom4/}{Blossom IV implementation. }\newline
+[8]\:\:\:\:\href{https://pub.ist.ac.at/~vnk/papers/blossom5.pdf}{Vladimir Kolmogorov. Blossom V: A new implementation of a minimum cost perfect matching algorithm. 2009}\newline
+[9]\:\:\:\:\href{https://www.math.uwaterloo.ca/~bico/papers/match_ijoc.pdf}{ W. Cook and A. Rohe.  Computing minimum-weight perfect matchings.INFORMS Journal on Computing, 11(2):138–148,February 1999. }\newline
+[10]\:\:\:\:\href{https://github.com/JuliaGraphs/LightGraphs.jl}{LightGraphs.jl }\newline
+[11]\:\:\:\:\href{https://github.com/JuliaGraphs/LightGraphsMatching.jl}{LightGraphsMatching.jl }\newline
+[12]\:\:\:\:\href{https://github.com/mlewe/BlossomV.jl}{BlossomV.jl}\newline
+[13]\:\:\:\:\href{https://link.springer.com/content/pdf/10.1007%2FBF01840439.pdf}{M.L. Fredman, R. Sedgewick, and D.D. Sleator. “The Pairing Heap: A
+New Form of Self-Adjusting Heap”. In: Algorithmica (1986).}\newline
+\end{itemize}
+
+    \end{document}
